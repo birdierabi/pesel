@@ -8,6 +8,8 @@
 
 // fonts
 // @include font-face('Font name', '~assets/fonts/font_name/font_file', 400);
+@include font-face('IBM Plex Sans', '~assets/fonts/IBM_Plex_Sans/ibm-plex-sans-v8-latin-regular', 400);
+@include font-face('IBM Plex Sans', '~assets/fonts/IBM_Plex_Sans/ibm-plex-sans-v8-latin-600', 600);
 
 // common styles
 body {
