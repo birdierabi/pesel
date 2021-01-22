@@ -1,8 +1,8 @@
 <template lang="pug">
   header.header-component.flex.j-between.a-center.wrapper
-    nuxt-link(:to="'/'").flex
+    nuxt-link(to="/").flex
       iconLogo
-    a.button-component.favourite.flex.a-center(href="/favourites" target="_self" rel="noreferrer")
+    nuxt-link(to="/favourites").favourite.flex.a-center
       span Избранные пёсели
       iconHeart
 </template>
@@ -27,16 +27,23 @@ export default {
 
     color: $color-text-shadow;
 
-    background-color: #151419;
+    background-color: $background-color-header;
 
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.55);
+
+    svg {
+      width: 118px;
+      height: auto;
+
+      color: $color-logo;
+    }
 
     .favourite {
       svg {
         width: 16px;
-        height: 14px;
+        height: auto;
 
-        fill: $color-text-shadow;
+        color: $color-text-shadow;
       }
 
       span {
