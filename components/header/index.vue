@@ -35,10 +35,14 @@ export default {
       width: 118px;
       height: auto;
 
-      color: $color-logo;
+      color: $color-blue;
     }
 
     .favourite {
+      &:hover {
+        opacity: 0.7;
+      }
+
       svg {
         width: 16px;
         height: auto;
