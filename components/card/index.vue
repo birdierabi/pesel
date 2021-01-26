@@ -1,16 +1,19 @@
 <template lang="pug">
   div.card-component.flex.j-between
-    iconHeart(tabindex="0")
+    iconHeart(tabindex="0").visible
+    iconFullHeart(tabindex="0")
     span.flex.j-end Spaniel
 </template>
 
 <script>
 import iconHeart from '@/components/icons/heart'
+import iconFullHeart from '@/components/icons/heart-full'
 
 export default {
   name: 'card-component',
   components: {
-    iconHeart
+    iconHeart,
+    iconFullHeart
   }
 }
 </script>
@@ -29,6 +32,8 @@ export default {
     background-image: url('http://dugward.ru/foto/Kosha1.jpg');
 
     svg {
+      display: none;
+
       width: 29px;
       height: auto;
 
@@ -36,8 +41,10 @@ export default {
 
       cursor: pointer;
 
-      &:hover {
-        opacity: 0.7;
+      @include hovers {
+        &:hover {
+          opacity: 0.7;
+        }
       }
     }
 
@@ -47,6 +54,10 @@ export default {
       font-size: 25px;
       line-height: $line-height-default;
       letter-spacing: $letter-spacing-default;
+    }
+
+    .visible {
+      display: flex;
     }
   }
 </style>

@@ -2,7 +2,7 @@
   details.filter-component
     summary.flex.a-center
       span Породы
-      iconDownArrow
+      iconDownDir
     div
       itemComponent.all
       div.filter-list.flex.wrap
@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import iconDownArrow from '@/components/icons/down-dir'
+import iconDownDir from '@/components/icons/down-dir'
 import itemComponent from '@/components/filter-item'
 
 export default {
   name: 'filter-component',
   components: {
-    iconDownArrow,
+    iconDownDir,
     itemComponent
   }
 }
@@ -64,8 +64,8 @@ export default {
     }
 
     .all {
-      border: 1px solid $color-blue;
-      color: $color-blue;
+      border: 1px solid $color-active-link;
+      color: $color-active-link;
     }
 
     .filter-list {

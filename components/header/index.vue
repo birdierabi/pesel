@@ -25,8 +25,6 @@ export default {
     padding-top: 35px;
     padding-bottom: 38px;
 
-    color: $color-text-shadow;
-
     background-color: $background-color-header;
 
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.55);
@@ -35,23 +33,37 @@ export default {
       width: 118px;
       height: auto;
 
-      color: $color-blue;
+      color: $color-logo;
     }
 
     .favourite {
-      &:hover {
-        opacity: 0.7;
+      @include hovers {
+        &:hover {
+          opacity: 0.7;
+        }
       }
 
       svg {
         width: 16px;
         height: auto;
 
-        color: $color-text-shadow;
+        color: $color-shadow;
       }
 
       span {
         margin-right: 10px;
+
+        color: $color-text-shadow;
+      }
+    }
+
+    .active {
+      svg {
+        color: $color-white;
+      }
+
+      span {
+        color: $color-text-regular;
       }
     }
   }

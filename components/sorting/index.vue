@@ -1,7 +1,7 @@
 <template lang="pug">
-  label.sorting-component.flex.a-center(for="alphabet" tabindex="0")
+  label.sorting-component.flex.a-center(tabindex="0")
     span Сортировка по алфавиту
-    input#alphabet.flex.a-center(type="checkbox", name="alphabet-sort")
+    input.flex.a-center(type="checkbox", name="alphabet-sort")
 </template>
 
 <script>
@@ -14,11 +14,6 @@ export default {
 
 <style lang="scss" scoped>
 .sorting-component {
-  position: absolute;
-  right: 0;
-
-  background-color: inherit;
-
   cursor: pointer;
 
   span {
@@ -44,7 +39,7 @@ export default {
     height: 14.5px;
 
     border-radius: 9px;
-    border: 1px solid $color-grey;
+    border: 1px solid $color-shadow;
     transition: all 0.2s ease;
 
     &:after {
@@ -57,7 +52,7 @@ export default {
       height: 9.67px;
 
       border-radius: 9px;
-      background-color: $color-grey;
+      background-color: $color-shadow;
       transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
     }
   }
