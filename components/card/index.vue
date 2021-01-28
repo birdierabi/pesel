@@ -34,7 +34,6 @@ export default {
     border-radius: 8px;
 
     img {
-      object-fit: cover;
       height: inherit;
       border-radius: 8px;
     }
@@ -54,6 +53,7 @@ export default {
 
       @include hovers {
         &:hover {
+          transition: 1s;
           opacity: 0.7;
         }
       }

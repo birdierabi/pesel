@@ -1,10 +1,11 @@
 <template lang="pug">
-  header.header-component.flex.j-between.a-center.wrapper
-    nuxt-link(to="/").flex
-      iconLogo
-    nuxt-link(to="/favourites").favourite.flex.a-center
-      span Избранные пёсели
-      iconHeart
+  header.header-component
+    div.flex.j-between.a-center.wrapper
+      nuxt-link(to="/").flex
+        iconLogo
+      nuxt-link(to="/favourites").favourite.flex.a-center
+        span Избранные пёсели
+        iconHeart
 </template>
 
 <script>
@@ -40,6 +41,7 @@ export default {
     .favourite {
       @include hovers {
         &:hover {
+          transition: 1s;
           opacity: 0.7;
         }
       }

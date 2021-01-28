@@ -28,6 +28,7 @@ export default {
 
     @include hovers {
       &:hover {
+        transition: 1s;
         opacity: 0.7;
       }
     }
