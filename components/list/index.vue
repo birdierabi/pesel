@@ -67,6 +67,7 @@ export default {
       .list-item:first-child {
         grid-column-start: 1;
         grid-column-end: 2;
+        height: 290px;
       }
     }
   }
