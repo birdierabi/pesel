@@ -44,11 +44,7 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    '@/plugins/modal',
-    '@/directives/outside'
-    // { src: '@/plugins/yandex-metrika.js', ssr: false }
-  ],
+  plugins: [],
 
   /*
   ** Nuxt.js dev-modules
@@ -64,7 +60,6 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/dotenv',
     '@nuxtjs/axios'
   ],
 
@@ -75,9 +70,7 @@ export default {
   axios: {
   },
 
-  router: {
-    middleware: ['default-contact']
-  },
+  router: {},
 
   /*
   ** Build configuration

@@ -3,22 +3,14 @@
     vHeader
     main.grow
       nuxt
-    vFooter#footer
 </template>
 
 <script>
 import vHeader from '@/components/header'
-import vFooter from '@/components/footer'
 
 export default {
   components: {
-    vHeader,
-    vFooter
-  },
-  watch: {
-    $route () {
-      this.closeAllModals()
-    }
+    vHeader
   }
 }
 </script>

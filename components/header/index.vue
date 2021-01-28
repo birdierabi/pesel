@@ -24,6 +24,7 @@ export default {
   .header-component {
     padding-top: 35px;
     padding-bottom: 38px;
+    width: 100%;
 
     background-color: $background-color-header;
 

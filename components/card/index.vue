@@ -1,5 +1,6 @@
 <template lang="pug">
-  div.card-component.flex.j-between
+  nuxt-link(to="/breed").card-component.flex.j-between
+    img(:src="image")
     iconHeart(tabindex="0").visible
     iconFullHeart(tabindex="0")
     span.flex.j-end Spaniel
@@ -14,24 +15,34 @@ export default {
   components: {
     iconHeart,
     iconFullHeart
+  },
+  props: {
+    image: {
+      type: String
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .card-component {
+    position: relative;
     flex-direction: column;
-    min-height: 290px;
-    padding: 25px;
+    height: inherit;
 
     background: linear-gradient(1.26deg, #000000 -5.53%, rgba(0, 0, 0, 0) 54.45%);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
     border-radius: 8px;
-    background-image: url('http://dugward.ru/foto/Kosha1.jpg');
+
+    img {
+      object-fit: cover;
+      height: inherit;
+      border-radius: 8px;
+    }
 
     svg {
+      position: absolute;
+      top: 25px;
+      left: 25px;
       display: none;
 
       width: 29px;
@@ -49,6 +60,10 @@ export default {
     }
 
     span {
+      position: absolute;
+      bottom: 25px;
+      right: 25px;
+
       font-family: $font-family-default;
       font-weight: $font-weight-semi-bold;
       font-size: 25px;

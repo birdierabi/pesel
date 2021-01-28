@@ -1,19 +1,16 @@
 <template lang="pug">
   .page.favourites-page.wrapper
-    div.list
-      vCard
-      vCard
-      vCard
+    vList
 </template>
 
 <script>
 
-import vCard from '@/components/card'
+import vList from '@/components/list'
 
 export default {
   name: 'favourites-page',
   components: {
-    vCard
+    vList
   }
 }
 </script>
@@ -21,12 +18,5 @@ export default {
 <style lang="scss" scoped>
   .favourites-page {
     padding-top: 122px;
-
-    .list {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-column-gap: 30px;
-      grid-row-gap: 30px;
-    }
   }
 </style>

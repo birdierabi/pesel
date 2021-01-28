@@ -1,18 +1,13 @@
 <template lang="pug">
   .page.index.wrapper
-    div.top.flex.a-start
+    .top.flex.a-start
       vFilter
       div.container
         vSorting
-    div.list
-      vCard.big
-      vCard
-      vCard
-      vCard
-      vCard
-    div.bottom.flex.j-center.a-center.wrapper
+    vList(:dogs="dogs.message")
+    .bottom.flex.j-center.a-center.wrapper
       vLoad
-      div.container
+      .container
         vTopButton
 </template>
 
@@ -20,7 +15,7 @@
 
 import vFilter from '@/components/filter'
 import vSorting from '@/components/sorting'
-import vCard from '@/components/card'
+import vList from '@/components/list'
 import vTopButton from '@/components/top-button'
 import vLoad from '@/components/load'
 
@@ -29,9 +24,35 @@ export default {
   components: {
     vFilter,
     vSorting,
-    vCard,
+    vList,
     vTopButton,
     vLoad
+  },
+  data () {
+    return {
+      dogs: [],
+      isLoading: false
+    }
+  },
+  async fetch () {
+    this.dogs = await fetch('https://dog.ceo/api/breeds/image/random/20').then(res => res.json())
+  },
+  methods: {
+    async getNewDogs () {
+      const newDogs = await fetch('https://dog.ceo/api/breeds/image/random/20').then(res => res.json())
+      this.dogs.message = Array.from(new Set(this.dogs.message.concat(newDogs.message)))
+    },
+    handleOnScroll () {
+      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+      if (bottomOfWindow) {
+        this.isLoading = true
+        this.getNewDogs()
+        this.isLoading = false
+      }
+    }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.handleOnScroll)
   }
 }
 </script>
@@ -39,20 +60,6 @@ export default {
 <style lang="scss" scoped>
   .index {
     padding-top: 50px;
-
-    .list {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-column-gap: 30px;
-      grid-row-gap: 30px;
-
-      padding-top: 25px;
-
-      .big {
-        grid-column-start: 1;
-        grid-column-end: 4;
-      }
-    }
 
     .top {
       position: relative;
