@@ -4,9 +4,9 @@
       vFilter
       div.container
         vSorting
-    vList(:dogs="dogs.message")
+    vList(:dogs="dogs")
     .bottom.flex.j-center.a-center.wrapper
-      vLoad
+      vLoad(v-show="isLoading")
       .container
         vTopButton
 </template>
@@ -35,19 +35,19 @@ export default {
     }
   },
   async fetch () {
-    this.dogs = await fetch('https://dog.ceo/api/breeds/image/random/20').then(res => res.json())
+    this.dogs = await fetch('https://dog.ceo/api/breeds/image/random/19').then(res => res.json()).then(data => data.message)
   },
   methods: {
     async getNewDogs () {
-      const newDogs = await fetch('https://dog.ceo/api/breeds/image/random/20').then(res => res.json())
-      this.dogs.message = Array.from(new Set(this.dogs.message.concat(newDogs.message)))
+      this.isLoading = true
+      const newDogs = await fetch('https://dog.ceo/api/breeds/image/random/18').then(res => res.json()).then(data => data.message)
+      this.dogs = [...this.dogs, ...newDogs]
+      this.isLoading = false
     },
     handleOnScroll () {
-      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+      const bottomOfWindow = window.pageYOffset + window.innerHeight === document.documentElement.offsetHeight
       if (bottomOfWindow) {
-        this.isLoading = true
         this.getNewDogs()
-        this.isLoading = false
       }
     }
   },

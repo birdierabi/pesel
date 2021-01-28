@@ -10,6 +10,11 @@
 export default {
   name: 'load-component',
   components: {
+  },
+  props: {
+    isLoading: {
+      type: Boolean
+    }
   }
 }
 </script>
