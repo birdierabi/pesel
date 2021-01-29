@@ -1,9 +1,9 @@
 <template lang="pug">
-  nuxt-link(to="/breed").card-component.flex.j-between
+  nuxt-link(:to="`/${getBreedLink}`").card-component.flex.j-between
     img(:src="image")
     iconHeart(tabindex="0").visible
     iconFullHeart(tabindex="0")
-    span.flex.j-end Spaniel
+    span.flex.j-end {{ getDogBreed }}
 </template>
 
 <script>
@@ -19,6 +19,16 @@ export default {
   props: {
     image: {
       type: String
+    }
+  },
+  computed: {
+    getDogBreed () {
+      const str = this.image.split('/')[4].split('-').reverse().join(' ').replace(/(^\w|\s\w)/g, element => element.toUpperCase())
+      return str
+    },
+    getBreedLink () {
+      const newLink = this.image.split('/')[4].split('-').reverse().join('-')
+      return newLink
     }
   }
 }

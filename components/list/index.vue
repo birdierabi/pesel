@@ -1,7 +1,7 @@
 <template lang="pug">
   .list-component
     .list-item(v-for="dog in dogs" :key="dog")
-      vCard(:image="dog")
+      vCard(:image="dog" :breed="dog")
 </template>
 
 <script>

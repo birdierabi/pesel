@@ -41,13 +41,15 @@ export default {
     async getNewDogs () {
       this.isLoading = true
       const newDogs = await fetch('https://dog.ceo/api/breeds/image/random/18').then(res => res.json()).then(data => data.message)
-      this.dogs = [...this.dogs, ...newDogs]
+      this.dogs = Array.from(new Set([...this.dogs, ...newDogs]))
       this.isLoading = false
     },
     handleOnScroll () {
-      const bottomOfWindow = window.pageYOffset + window.innerHeight === document.documentElement.offsetHeight
-      if (bottomOfWindow) {
-        this.getNewDogs()
+      const bottomOfWindow = document.documentElement.scrollTop + 100 + window.innerHeight
+      if (bottomOfWindow >= document.body.scrollHeight) {
+        if (!this.isLoading) {
+          this.getNewDogs()
+        }
       }
     }
   },
