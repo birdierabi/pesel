@@ -1,6 +1,6 @@
 <template lang="pug">
-  nuxt-link(:to="`/${breedElement}`").filter-item-component
-    span {{ breedElement }}
+  nuxt-link(:to="`/${getLink}`").filter-item-component
+    span {{ getBreed }}
     iconClose
 </template>
 
@@ -15,6 +15,20 @@ export default {
   props: {
     breedElement: {
       type: String
+    }
+  },
+  computed: {
+    getLink () {
+      if (this.breedElement === undefined) {
+        return ''
+      }
+      return this.breedElement
+    },
+    getBreed () {
+      if (this.breedElement === undefined) {
+        return this.$route.params.breed
+      }
+      return this.breedElement
     }
   }
 }
@@ -44,6 +58,10 @@ export default {
       width: 5.7px;
       height: auto;
       margin-left: 7.35px;
+    }
+
+    span {
+      text-transform: capitalize;
     }
   }
 

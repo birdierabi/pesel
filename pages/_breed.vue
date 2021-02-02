@@ -2,7 +2,8 @@
   .page.breed-page.wrapper
     .top.flex.a-start
       vFilter(:breeds="breeds")
-      itemComponent.active
+      div(@click="isActive = !isActive")
+        itemComponent.active(v-show="isActive")
       .container
         vSorting
     vList(:dogs="dogs")
@@ -30,7 +31,8 @@ export default {
     return {
       dogs: [],
       breeds: [],
-      isLoading: false
+      isLoading: false,
+      isActive: true
     }
   },
   async fetch () {

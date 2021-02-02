@@ -6,7 +6,7 @@
         iconDownDir
     .filter-inner
       itemComponent.all(breedElement="All")
-      .filter-list.flex.wrap(v-for="breedList in breeds" :key="breedList")
+      .filter-list.flex.wrap(v-for="breedList in breeds" :key="breedList.letter")
         span {{ breedList.letter }}
         .filter-item.flex.a-center(v-for="breedElement in breedList.list" :key="breedElement")
           itemComponent(:breedElement="breedElement")
@@ -94,10 +94,6 @@ export default {
       span:not(:first-child) {
         margin-left: 40px;
       }
-    }
-
-    .filter-item {
-      text-transform: capitalize;
     }
   }
 </style>
