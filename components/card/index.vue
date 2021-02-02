@@ -23,12 +23,10 @@ export default {
   },
   computed: {
     getDogBreed () {
-      const str = this.image.split('/')[4].split('-').reverse().join(' ').replace(/(^\w|\s\w)/g, element => element.toUpperCase())
-      return str
+      return this.image.split('/')[4].split('-').reverse().join(' ')
     },
     getBreedLink () {
-      const newLink = this.image.split('/')[4].split('-').reverse().join('-')
-      return newLink
+      return this.image.split('/')[4]
     }
   }
 }
@@ -38,13 +36,17 @@ export default {
   .card-component {
     position: relative;
     flex-direction: column;
-    height: inherit;
+    height: 100%;
 
     background: linear-gradient(1.26deg, #000000 -5.53%, rgba(0, 0, 0, 0) 54.45%);
     border-radius: 8px;
 
     img {
-      height: inherit;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+
       border-radius: 8px;
     }
 
@@ -79,6 +81,7 @@ export default {
       font-size: 25px;
       line-height: $line-height-default;
       letter-spacing: $letter-spacing-default;
+      text-transform: capitalize;
     }
 
     .visible {
