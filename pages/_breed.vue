@@ -1,31 +1,29 @@
 <template lang="pug">
-  .page.index.wrapper
+  .page.breed-page.wrapper
     .top.flex.a-start
       vFilter(:breeds="breeds")
+      itemComponent.active
       .container
         vSorting
     vList(:dogs="dogs")
     .bottom.flex.j-center.a-center.wrapper
       vLoad(v-show="isLoading")
-      .container
-        vTopButton
 </template>
-
 <script>
 
 import vFilter from '@/components/filter'
+import itemComponent from '@/components/filter-item'
 import vSorting from '@/components/sorting'
 import vList from '@/components/list'
-import vTopButton from '@/components/top-button'
 import vLoad from '@/components/load'
 
 export default {
-  name: 'index-page',
+  name: 'breed-page',
   components: {
     vFilter,
+    itemComponent,
     vSorting,
     vList,
-    vTopButton,
     vLoad
   },
   data () {
@@ -36,7 +34,7 @@ export default {
     }
   },
   async fetch () {
-    this.dogs = await fetch('https://dog.ceo/api/breeds/image/random/19').then(res => res.json()).then(data => data.message)
+    this.dogs = await fetch('https://dog.ceo/api/breed/' + this.$route.params.breed.replace('-', '/') + '/images/random/19').then(res => res.json()).then(data => data.message)
     const allBreeds = await fetch('https://dog.ceo/api/breeds/list/all').then(res => res.json()).then(element => element.message)
     const breeds = []
     for (const item in allBreeds) {
@@ -55,7 +53,7 @@ export default {
   methods: {
     async getNewDogs () {
       this.isLoading = true
-      const newDogs = await fetch('https://dog.ceo/api/breeds/image/random/18').then(res => res.json()).then(data => data.message)
+      const newDogs = await fetch('https://dog.ceo/api/breed/' + this.$route.params.breed.replace('-', '/') + '/images/random/18').then(res => res.json()).then(data => data.message)
       this.dogs = Array.from(new Set([...this.dogs, ...newDogs]))
       this.isLoading = false
     },
@@ -88,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .index {
+  .breed-page {
     padding-top: 50px;
 
     .top {
@@ -100,19 +98,19 @@ export default {
         position: absolute;
         right: 0;
       }
+
+      .active {
+        position: absolute;
+        left: 105px;
+
+        border: 1px solid $color-active-link;
+        color: $color-active-link;
+      }
     }
 
     .bottom {
-      position: relative;
-
-      padding-top: 83px;
-      padding-bottom: 163px;
-
-      .container {
-        position: absolute;
-        right: 0;
-        bottom: 55%;
-      }
+      padding-top: 44px;
+      padding-bottom: 87px;
     }
   }
 </style>

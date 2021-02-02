@@ -1,5 +1,6 @@
 <template lang="pug">
-  nuxt-link(to="/breed").filter-item-component Australian
+  nuxt-link(:to="`/${breedElement}`").filter-item-component
+    span {{ breedElement }}
     iconClose
 </template>
 
@@ -10,6 +11,11 @@ export default {
   name: 'filter-item-component',
   components: {
     iconClose
+  },
+  props: {
+    breedElement: {
+      type: String
+    }
   }
 }
 </script>

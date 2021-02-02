@@ -1,19 +1,15 @@
 <template lang="pug">
   details.filter-component
     summary.flex.a-center
-      span Породы
-      iconDownDir
-    div
-      itemComponent.all
-      div.filter-list.flex.wrap
-        span A
-        itemComponent
-        itemComponent
-        itemComponent
-        span B
-        itemComponent
-        itemComponent
-        itemComponent
+      div
+        span Породы
+        iconDownDir
+    .filter-inner
+      itemComponent.all(breedElement="All")
+      .filter-list.flex.wrap(v-for="breedList in breeds" :key="breedList")
+        span {{ breedList.letter }}
+        .filter-item.flex.a-center(v-for="breedElement in breedList.list" :key="breedElement")
+          itemComponent(:breedElement="breedElement")
 </template>
 
 <script>
@@ -25,6 +21,19 @@ export default {
   components: {
     iconDownDir,
     itemComponent
+  },
+  data () {
+    return {
+      isActive: false
+    }
+  },
+  props: {
+    breeds: {
+      type: Array
+    },
+    breedList: {
+      type: Array
+    }
   }
 }
 </script>
@@ -55,12 +64,13 @@ export default {
       }
     }
 
-    summary::-webkit-details-marker {
-      display: none;
+    .filter-inner {
+      padding-top: 30px;
+      padding-bottom: 25px;
     }
 
-    div {
-      padding-top: 30px;
+    summary::-webkit-details-marker {
+      display: none;
     }
 
     .all {
@@ -73,7 +83,6 @@ export default {
       align-items: center;
       gap: 15px;
       padding-top: 15px;
-      padding-bottom: 15px;
 
       span {
         display: block;
@@ -85,6 +94,10 @@ export default {
       span:not(:first-child) {
         margin-left: 40px;
       }
+    }
+
+    .filter-item {
+      text-transform: capitalize;
     }
   }
 </style>
