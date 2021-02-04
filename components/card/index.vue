@@ -1,8 +1,9 @@
 <template lang="pug">
   nuxt-link(:to="`/${getBreedLink}`").card-component.flex.j-between
     img(:src="image")
-    iconHeart(tabindex="0").visible
-    iconFullHeart(tabindex="0")
+    div(@click.prevent="(!isActive) ? getLike() : getDislike()").inner
+      iconHeart(:class="{'active': !isActive}" tabindex="0")
+      iconFullHeart(:class="{'active': isActive}" tabindex="0")
     span.flex.j-end {{ getDogBreed }}
 </template>
 
@@ -16,9 +17,25 @@ export default {
     iconHeart,
     iconFullHeart
   },
+  data () {
+    return {
+      isActive: false
+    }
+  },
   props: {
     image: {
       type: String
+    }
+  },
+  mounted () {
+    if (localStorage.getItem(this.image)) {
+      this.isActive = true
+      const localStorageList = document.querySelectorAll('.list-item')
+      for (let i = 0; i < localStorageList.length; i++) {
+        localStorageList[i].onclick = function () {
+          localStorageList[i].remove()
+        }
+      }
     }
   },
   computed: {
@@ -27,6 +44,16 @@ export default {
     },
     getBreedLink () {
       return this.image.split('/')[4]
+    }
+  },
+  methods: {
+    getLike () {
+      localStorage.setItem(this.image, this.image)
+      this.isActive = true
+    },
+    getDislike () {
+      this.isActive = false
+      localStorage.removeItem(this.image)
     }
   }
 }
@@ -54,8 +81,8 @@ export default {
       position: absolute;
       top: 25px;
       left: 25px;
-      display: none;
 
+      display: none;
       width: 29px;
       height: auto;
 
@@ -84,7 +111,7 @@ export default {
       text-transform: capitalize;
     }
 
-    .visible {
+    .active {
       display: flex;
     }
   }

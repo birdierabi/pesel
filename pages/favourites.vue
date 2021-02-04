@@ -1,6 +1,6 @@
 <template lang="pug">
   .page.favourites-page.wrapper
-    vList
+    vList(:dogs="favourites")
 </template>
 
 <script>
@@ -11,6 +11,20 @@ export default {
   name: 'favourites-page',
   components: {
     vList
+  },
+  data () {
+    return {
+      dogs: []
+    }
+  },
+  computed: {
+    favourites () {
+      let arr = []
+      if (process.browser) {
+        arr = Object.values(localStorage)
+      }
+      return arr
+    }
   }
 }
 </script>
@@ -18,5 +32,6 @@ export default {
 <style lang="scss" scoped>
   .favourites-page {
     padding-top: 122px;
+    padding-bottom: 150px;
   }
 </style>
