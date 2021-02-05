@@ -3,7 +3,7 @@
     div.flex.j-between.a-center.wrapper
       nuxt-link(to="/").flex
         iconLogo
-      nuxt-link(to="/favourites").favourite.flex.a-center
+      nuxt-link(to="/favourites" :class="{'active': isActive}").favourite.flex.a-center
         span Избранные пёсели
         iconHeart
 </template>
@@ -17,6 +17,16 @@ export default {
   components: {
     iconLogo,
     iconHeart
+  },
+  data () {
+    return {
+      isActive: false
+    }
+  },
+  watch: {
+    '$route' () {
+      (this.$route.path === '/favourites') ? this.isActive = true : this.isActive = false
+    }
   }
 }
 </script>
