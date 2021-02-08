@@ -1,20 +1,20 @@
 <template lang="pug">
   .page.index.wrapper
     .top.flex.a-start
-      vFilter(:breeds="breeds")
-      .container
-        vSorting
+      vFilter(:breeds="breeds" :isAllActive="isAllActive")
+      div
+        itemComponent.active(breedElement="All")
     vList(:dogs="dogs")
     .bottom.flex.j-center.a-center.wrapper
       vLoad(v-show="isLoading")
-      .container
-        vTopButton
+      .container(@click="backToTop()")
+        vTopButton(v-show="isVisible")
 </template>
 
 <script>
 
 import vFilter from '@/components/filter'
-import vSorting from '@/components/sorting'
+import itemComponent from '@/components/filter-item'
 import vList from '@/components/list'
 import vTopButton from '@/components/top-button'
 import vLoad from '@/components/load'
@@ -23,7 +23,7 @@ export default {
   name: 'index-page',
   components: {
     vFilter,
-    vSorting,
+    itemComponent,
     vList,
     vTopButton,
     vLoad
@@ -32,7 +32,9 @@ export default {
     return {
       dogs: [],
       breeds: [],
-      isLoading: false
+      isLoading: false,
+      isVisible: false,
+      isAllActive: false
     }
   },
   async fetch () {
@@ -67,6 +69,14 @@ export default {
         }
       }
     },
+    scrollDown () {
+      const scrollOfWindow = 2 * window.innerHeight
+      if (document.documentElement.scrollTop > scrollOfWindow) {
+        this.isVisible = true
+      } else {
+        this.isVisible = false
+      }
+    },
     getSections (breeds) {
       return Object.values(
         breeds.reduce((acc, word) => {
@@ -79,10 +89,14 @@ export default {
           return acc
         }, {})
       )
+    },
+    backToTop () {
+      document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
     }
   },
   mounted () {
     window.addEventListener('scroll', this.handleOnScroll)
+    window.addEventListener('scroll', this.scrollDown)
   }
 }
 </script>
@@ -100,18 +114,28 @@ export default {
         position: absolute;
         right: 0;
       }
+
+      .active {
+        position: absolute;
+        left: 105px;
+
+        border: 1px solid $color-active-link;
+        color: $color-active-link;
+        pointer-events: none;
+      }
     }
 
     .bottom {
-      position: relative;
-
       padding-top: 83px;
       padding-bottom: 163px;
 
       .container {
-        position: absolute;
-        right: 0;
-        bottom: 55%;
+        position: fixed;
+        bottom: 60px;
+        right: 2px;
+        z-index: 2;
+
+        transition: all 1s ease-in-out;
       }
     }
   }

@@ -70,7 +70,8 @@ export default {
   axios: {
   },
 
-  router: {},
+  router: {
+  },
 
   /*
   ** Build configuration

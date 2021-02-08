@@ -1,7 +1,7 @@
 <template lang="pug">
   nuxt-link(:to="`/${getBreedLink}`").card-component.flex.j-between
     img(:src="image")
-    div(@click.prevent="(!isActive) ? getLike() : getDislike()").inner
+    .inner(@click.prevent="(!isActive) ? getLike() : getDislike()")
       iconHeart(:class="{'active': !isActive}" tabindex="0")
       iconFullHeart(:class="{'active': isActive}" tabindex="0")
     span.flex.j-end {{ getDogBreed }}
@@ -63,18 +63,12 @@ export default {
   .card-component {
     position: relative;
     flex-direction: column;
-    height: 100%;
 
     background: linear-gradient(1.26deg, #000000 -5.53%, rgba(0, 0, 0, 0) 54.45%);
     border-radius: 8px;
 
     img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      object-position: center;
-
-      border-radius: 8px;
+      min-height: 290px;
     }
 
     svg {
@@ -89,6 +83,7 @@ export default {
       color: $color-white;
 
       cursor: pointer;
+      outline: none;
 
       @include hovers {
         &:hover {
@@ -100,7 +95,7 @@ export default {
 
     span {
       position: absolute;
-      bottom: 25px;
+      top: 237px;
       right: 25px;
 
       font-family: $font-family-default;
@@ -113,6 +108,22 @@ export default {
 
     .active {
       display: flex;
+    }
+  }
+
+  .list-item:first-child span {
+    top: 460px;
+  }
+
+  @include md {
+    .list-item:first-child span {
+      top: 297px;
+    }
+  }
+
+  @include xs {
+    .list-item:first-child span {
+      top: 237px;
     }
   }
 </style>

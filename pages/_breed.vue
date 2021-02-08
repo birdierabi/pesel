@@ -1,11 +1,9 @@
 <template lang="pug">
   .page.breed-page.wrapper
     .top.flex.a-start
-      vFilter(:breeds="breeds")
+      vFilter(:breeds="breeds" :isAllActive="isAllActive")
       div(@click="isActive = !isActive")
         itemComponent.active(v-show="isActive")
-      .container
-        vSorting
     vList(:dogs="dogs")
     .bottom.flex.j-center.a-center.wrapper
       vLoad(v-show="isLoading")
@@ -14,7 +12,6 @@
 
 import vFilter from '@/components/filter'
 import itemComponent from '@/components/filter-item'
-import vSorting from '@/components/sorting'
 import vList from '@/components/list'
 import vLoad from '@/components/load'
 
@@ -23,7 +20,6 @@ export default {
   components: {
     vFilter,
     itemComponent,
-    vSorting,
     vList,
     vLoad
   },
@@ -32,11 +28,12 @@ export default {
       dogs: [],
       breeds: [],
       isLoading: false,
-      isActive: true
+      isActive: true,
+      isAllActive: true
     }
   },
   async fetch () {
-    this.dogs = await fetch('https://dog.ceo/api/breed/' + this.$route.params.breed.replace('-', '/') + '/images/random/19').then(res => res.json()).then(data => data.message)
+    this.dogs = await fetch('https://dog.ceo/api/breed/' + this.$route.params.breed.replace('-', '/') + '/images/random/19').then(res => res.json()).then(data => data.message).catch(() => ({}))
     const allBreeds = await fetch('https://dog.ceo/api/breeds/list/all').then(res => res.json()).then(element => element.message)
     const breeds = []
     for (const item in allBreeds) {
@@ -107,6 +104,7 @@ export default {
 
         border: 1px solid $color-active-link;
         color: $color-active-link;
+        pointer-events: none;
       }
     }
 

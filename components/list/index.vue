@@ -31,6 +31,10 @@ export default {
 
   .list-item {
     height: 290px;
+
+    overflow: hidden;
+
+    border-radius: 8px;
   }
 
   .list-item:first-child {
@@ -51,6 +55,7 @@ export default {
       .list-item:first-child {
         grid-column-start: 1;
         grid-column-end: 3;
+        height: 350px;
       }
     }
   }

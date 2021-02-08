@@ -1,38 +1,40 @@
 <template lang="pug">
-  details.filter-component
-    summary.flex.a-center
-      div
-        span Породы
-        iconDownDir
-    .filter-inner
-      itemComponent.all(breedElement="All")
-      .filter-list.flex.wrap(v-for="breedList in breeds" :key="breedList.letter")
-        span {{ breedList.letter }}
-        .filter-item.flex.a-center(v-for="breedElement in breedList.list" :key="breedElement")
-          itemComponent(:breedElement="breedElement")
+  .filter-component
+    .inner.flex.a-center(@click="isVisible = !isVisible")
+      span Породы
+      iconDownDir(:class="{'rotate': isVisible}")
+    vDropdown(:isVisible="isVisible")
+      .filter-inner
+        itemComponent.all(v-show="isAllActive" breedElement="/")
+        .filter-list(v-for="breedList in breeds" :key="breedList.letter")
+          span {{ breedList.letter }}
+          .filter-item(v-for="breedElement in breedList.list" :key="breedElement")
+            itemComponent(:breedElement="breedElement")
 </template>
 
 <script>
 import iconDownDir from '@/components/icons/down-dir'
+import vDropdown from '@/components/dropdown'
 import itemComponent from '@/components/filter-item'
 
 export default {
   name: 'filter-component',
   components: {
     iconDownDir,
+    vDropdown,
     itemComponent
   },
   data () {
     return {
-      isActive: false
+      isVisible: false
     }
   },
   props: {
     breeds: {
       type: Array
     },
-    breedList: {
-      type: Array
+    isAllActive: {
+      type: Boolean
     }
   }
 }
@@ -40,13 +42,13 @@ export default {
 
 <style lang="scss" scoped>
   .filter-component {
-    &[open] summary svg {
+    .rotate {
       transform: rotate(180deg);
     }
 
     cursor: pointer;
 
-    summary {
+    .inner {
       max-width: 81px;
       padding-bottom: 2px;
 
@@ -66,7 +68,7 @@ export default {
 
     .filter-inner {
       padding-top: 30px;
-      padding-bottom: 25px;
+      padding-bottom: 10px;
     }
 
     summary::-webkit-details-marker {
@@ -76,24 +78,32 @@ export default {
     .all {
       border: 1px solid $color-active-link;
       color: $color-active-link;
+      display: flex;
+      max-width: 40px;
+      margin-bottom: 15px;
     }
 
     .filter-list {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding-top: 15px;
+      display: inline;
 
       span {
-        display: block;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 15px;
 
         font-size: 20px;
         color: $color-text-shadow;
       }
+    }
 
-      span:not(:first-child) {
-        margin-left: 40px;
-      }
+    .filter-list:not(:first-of-type) span {
+      margin-left: 25px;
+    }
+
+    .filter-item {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 15px;
     }
   }
 </style>

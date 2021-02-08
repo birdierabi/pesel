@@ -14,19 +14,23 @@ export default {
   },
   props: {
     breedElement: {
-      type: String
+      type: String,
+      default: ''
     }
   },
   computed: {
     getLink () {
-      if (this.breedElement === undefined) {
+      if (this.breedElement === '/') {
         return ''
+      } else {
+        return this.breedElement
       }
-      return this.breedElement
     },
     getBreed () {
-      if (this.breedElement === undefined) {
+      if (!this.breedElement) {
         return this.$route.params.breed
+      } else if (this.breedElement === '/') {
+        return 'All'
       }
       return this.breedElement
     }
@@ -36,6 +40,7 @@ export default {
 
 <style lang="scss" scoped>
   .filter-item-component {
+    display: flex;
     padding: 4px 12px;
 
     font-size: 12px;
