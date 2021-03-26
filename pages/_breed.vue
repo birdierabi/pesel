@@ -1,12 +1,14 @@
 <template lang="pug">
   .page.breed-page.wrapper
-    .top.flex.a-start
-      vFilter(:breeds="breeds" :isAllActive="isAllActive")
-      div(@click="isActive = !isActive")
-        itemComponent.active(v-show="isActive")
-    vList(:dogs="dogs")
-    .bottom.flex.j-center.a-center.wrapper
-      vLoad(v-show="isLoading")
+    p(v-if="$fetchState.error") Здесь нет того, что вы&nbsp;искали. Попробуйте снова
+    .inner(v-else)
+      .top.flex.a-start
+        vFilter(:breeds="breeds" :isAllActive="isAllActive")
+        div(@click="isActive = !isActive")
+          itemComponent.active(v-show="isActive")
+      vList(:dogs="dogs")
+      .bottom.flex.j-center.a-center.wrapper
+        vLoad(v-show="isLoading")
 </template>
 <script>
 
@@ -33,8 +35,18 @@ export default {
     }
   },
   async fetch () {
-    this.dogs = await fetch('https://dog.ceo/api/breed/' + this.$route.params.breed.replace('-', '/') + '/images/random/19').then(res => res.json()).then(data => data.message).catch(() => ({}))
+    const dogs = await fetch('https://dog.ceo/api/breed/' + this.$route.params.breed.replace('-', '/') + '/images/random/19').then(res => res.json()).then(data => data.message)
+    if (dogs !== 'Breed not found (master breed does not exist)') {
+      this.dogs = dogs
+    } else {
+      if (process.server) {
+        this.$nuxt.context.res.statusCode = 404
+      }
+      throw new Error('Breed not found')
+    }
+
     const allBreeds = await fetch('https://dog.ceo/api/breeds/list/all').then(res => res.json()).then(element => element.message)
+
     const breeds = []
     for (const item in allBreeds) {
       if (allBreeds[item].length === 0) {
