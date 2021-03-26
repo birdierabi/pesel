@@ -79,9 +79,9 @@ export default {
     getSections (breeds) {
       return Object.values(
         breeds.reduce((acc, word) => {
-          const firstLetter = word[0].toLocaleUpperCase()
+          const firstLetter = word[0].toUpperCase()
           if (!acc[firstLetter]) {
-            acc[firstLetter] = { letter: firstLetter, list: [word] }
+            acc[firstLetter] = { letter: firstLetter, list: [word.replace(' ', '-')] }
           } else {
             acc[firstLetter].list.push(word.replace(' ', '-'))
           }
