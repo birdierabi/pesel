@@ -25,7 +25,7 @@ export default {
   },
   watch: {
     '$route' () {
-      (this.$route.path === '/favourites') ? this.isActive = true : this.isActive = false
+      this.isActive = (this.$route.path === '/favourites')
     }
   }
 }
