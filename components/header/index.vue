@@ -49,9 +49,10 @@ export default {
     }
 
     .favourite {
+      transition: 1s;
+
       @include hovers {
         &:hover {
-          transition: 1s;
           opacity: 0.7;
         }
       }
@@ -77,6 +78,12 @@ export default {
 
       span {
         color: $color-text-regular;
+      }
+    }
+
+    @include xs {
+      svg {
+        width: 100px;
       }
     }
   }
