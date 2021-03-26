@@ -1,7 +1,7 @@
 <template lang="pug">
   nuxt-link(:to="`/${getBreedLink}`").card-component.flex.j-between
     img(:src="image")
-    .inner(@click.prevent="(!isActive) ? getLike() : getDislike()")
+    .inner(@click.prevent="toggleLike")
       iconHeart(:class="{'active': !isActive}" tabindex="0")
       iconFullHeart(:class="{'active': isActive}" tabindex="0")
     span.flex.j-end {{ getDogBreed }}
@@ -47,13 +47,14 @@ export default {
     }
   },
   methods: {
-    getLike () {
-      localStorage.setItem(this.image, this.image)
-      this.isActive = true
-    },
-    getDislike () {
-      this.isActive = false
-      localStorage.removeItem(this.image)
+    toggleLike () {
+      if (!this.isActive) {
+        localStorage.setItem(this.image, this.image)
+        this.isActive = true
+      } else {
+        this.isActive = false
+        localStorage.removeItem(this.image)
+      }
     }
   }
 }
@@ -85,9 +86,10 @@ export default {
       cursor: pointer;
       outline: none;
 
+      transition: 1s;
+
       @include hovers {
         &:hover {
-          transition: 1s;
           opacity: 0.7;
         }
       }
