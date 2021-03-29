@@ -19,11 +19,7 @@ export default {
   },
   computed: {
     favourites () {
-      let arr = []
-      if (process.browser) {
-        arr = Object.values(localStorage)
-      }
-      return arr
+      return JSON.parse(localStorage.getItem('array')) ? JSON.parse(localStorage.getItem('array')) : []
     }
   }
 }

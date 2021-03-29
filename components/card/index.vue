@@ -11,6 +11,8 @@
 import iconHeart from '@/components/icons/heart'
 import iconFullHeart from '@/components/icons/heart-full'
 
+const array = []
+
 export default {
   name: 'card-component',
   components: {
@@ -28,12 +30,14 @@ export default {
     }
   },
   mounted () {
-    if (localStorage.getItem(this.image)) {
-      this.isActive = true
-      const localStorageList = document.querySelectorAll('.list-item')
-      for (let i = 0; i < localStorageList.length; i++) {
-        localStorageList[i].onclick = function () {
-          localStorageList[i].remove()
+    if (this.$route.path === '/favourites') {
+      if (localStorage.getItem('array')) {
+        this.isActive = true
+        const localStorageList = document.querySelectorAll('.list-item')
+        for (let i = 0; i < localStorageList.length; i++) {
+          localStorageList[i].onclick = function () {
+            localStorageList[i].remove()
+          }
         }
       }
     }
@@ -49,7 +53,8 @@ export default {
   methods: {
     toggleLike () {
       if (!this.isActive) {
-        localStorage.setItem(this.image, this.image)
+        array.push(this.image)
+        localStorage.setItem('array', JSON.stringify(array))
         this.isActive = true
       } else {
         this.isActive = false
