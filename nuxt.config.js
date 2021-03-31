@@ -7,7 +7,7 @@ export default {
   head: {
     title: '',
     htmlAttrs: {
-      lang: 'ru'
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
@@ -60,6 +60,7 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/dotenv',
     '@nuxtjs/axios'
   ],
 
@@ -71,6 +72,7 @@ export default {
   },
 
   router: {
+    middleware: ['breeds']
   },
 
   /*
