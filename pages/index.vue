@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import mixinBreeds from '@/mixins/breeds'
 
 import vFilter from '@/components/filter'
 import itemComponent from '@/components/filter-item'
@@ -21,6 +22,7 @@ import vLoad from '@/components/load'
 
 export default {
   name: 'index-page',
+  mixins: [mixinBreeds],
   components: {
     vFilter,
     itemComponent,
@@ -31,7 +33,6 @@ export default {
   data () {
     return {
       dogs: [],
-      breeds: [],
       isLoading: false,
       isVisible: false,
       isAllActive: false
@@ -39,20 +40,6 @@ export default {
   },
   async fetch () {
     this.dogs = await fetch('https://dog.ceo/api/breeds/image/random/19').then(res => res.json()).then(data => data.message)
-    const allBreeds = await fetch('https://dog.ceo/api/breeds/list/all').then(res => res.json()).then(element => element.message)
-    const breeds = []
-    for (const item in allBreeds) {
-      if (allBreeds[item].length === 0) {
-        breeds.push(item)
-      } else if (allBreeds[item].length === 1) {
-        breeds.push(item + ' ' + allBreeds[item])
-      } else {
-        for (let i = 0; i < allBreeds[item].length; i++) {
-          breeds.push(item + ' ' + allBreeds[item][i])
-        }
-      }
-    }
-    this.breeds = this.getSections(breeds)
   },
   methods: {
     async getNewDogs () {
@@ -76,19 +63,6 @@ export default {
       } else {
         this.isVisible = false
       }
-    },
-    getSections (breeds) {
-      return Object.values(
-        breeds.reduce((acc, word) => {
-          const firstLetter = word[0].toLocaleUpperCase()
-          if (!acc[firstLetter]) {
-            acc[firstLetter] = { letter: firstLetter, list: [word] }
-          } else {
-            acc[firstLetter].list.push(word.replace(' ', '-'))
-          }
-          return acc
-        }, {})
-      )
     },
     backToTop () {
       document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })

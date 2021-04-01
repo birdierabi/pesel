@@ -10,7 +10,9 @@
       .bottom.flex.j-center.a-center.wrapper
         vLoad(v-show="isLoading")
 </template>
+
 <script>
+import mixinBreeds from '@/mixins/breeds'
 
 import vFilter from '@/components/filter'
 import itemComponent from '@/components/filter-item'
@@ -19,6 +21,7 @@ import vLoad from '@/components/load'
 
 export default {
   name: 'breed-page',
+  mixins: [mixinBreeds],
   components: {
     vFilter,
     itemComponent,
@@ -28,7 +31,6 @@ export default {
   data () {
     return {
       dogs: [],
-      breeds: [],
       isLoading: false,
       isActive: true,
       isAllActive: true
@@ -44,22 +46,6 @@ export default {
       }
       throw new Error('Breed not found')
     }
-
-    const allBreeds = await fetch('https://dog.ceo/api/breeds/list/all').then(res => res.json()).then(element => element.message)
-
-    const breeds = []
-    for (const item in allBreeds) {
-      if (allBreeds[item].length === 0) {
-        breeds.push(item)
-      } else if (allBreeds[item].length === 1) {
-        breeds.push(item + ' ' + allBreeds[item])
-      } else {
-        for (let i = 0; i < allBreeds[item].length; i++) {
-          breeds.push(item + ' ' + allBreeds[item][i])
-        }
-      }
-    }
-    this.breeds = this.getSections(breeds)
   },
   methods: {
     async getNewDogs () {
@@ -75,19 +61,6 @@ export default {
           this.getNewDogs()
         }
       }
-    },
-    getSections (breeds) {
-      return Object.values(
-        breeds.reduce((acc, word) => {
-          const firstLetter = word[0].toUpperCase()
-          if (!acc[firstLetter]) {
-            acc[firstLetter] = { letter: firstLetter, list: [word.replace(' ', '-')] }
-          } else {
-            acc[firstLetter].list.push(word.replace(' ', '-'))
-          }
-          return acc
-        }, {})
-      )
     }
   },
   mounted () {

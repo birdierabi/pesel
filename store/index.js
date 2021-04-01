@@ -1,13 +1,30 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import api from './api'
 
-Vue.use(Vuex)
+export const modules = {
+  api
+}
 
-export const store = new Vuex.Store({
-  state: {
-    breeds: []
-  },
-  getters: {},
-  mutations: {},
-  actions: {}
+export const state = () => ({
+  allBreeds: []
 })
+
+export const actions = {
+  //
+}
+
+export const mutations = {
+  SET_BREEDS (state, value) {
+    state.allBreeds = value
+  }
+}
+
+export const getters = {
+  //
+}
+
+export default {
+  state,
+  actions,
+  mutations,
+  getters
+}
