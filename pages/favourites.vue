@@ -19,7 +19,9 @@ export default {
   },
   computed: {
     favourites () {
-      return JSON.parse(localStorage.getItem('array')) ? JSON.parse(localStorage.getItem('array')) : []
+      return (process.browser)
+        ? JSON.parse(localStorage.getItem('array'))
+        : []
     }
   }
 }

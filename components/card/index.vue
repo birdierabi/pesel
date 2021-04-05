@@ -11,8 +11,6 @@
 import iconHeart from '@/components/icons/heart'
 import iconFullHeart from '@/components/icons/heart-full'
 
-const array = []
-
 export default {
   name: 'card-component',
   components: {
@@ -30,14 +28,13 @@ export default {
     }
   },
   mounted () {
-    if (this.$route.path === '/favourites') {
-      if (localStorage.getItem('array')) {
-        this.isActive = true
-        const localStorageList = document.querySelectorAll('.list-item')
-        for (let i = 0; i < localStorageList.length; i++) {
-          localStorageList[i].onclick = function () {
-            localStorageList[i].remove()
-          }
+    const array = JSON.parse(localStorage.getItem('array'))
+    if (array.findIndex(dog => dog === this.image) !== -1) {
+      this.isActive = true
+      const localStorageList = document.querySelectorAll('.list-item')
+      for (let i = 0; i < localStorageList.length; i++) {
+        localStorageList[i].onclick = function () {
+          localStorageList[i].remove()
         }
       }
     }
@@ -52,14 +49,18 @@ export default {
   },
   methods: {
     toggleLike () {
+      const array = JSON.parse(localStorage.getItem('array'))
+      const index = array.findIndex(dog => dog === this.image)
       if (!this.isActive) {
         array.push(this.image)
-        localStorage.setItem('array', JSON.stringify(array))
         this.isActive = true
       } else {
         this.isActive = false
-        localStorage.removeItem('array', JSON.stringify(array))
+        if (index !== -1) {
+          array.splice(index, 1)
+        }
       }
+      localStorage.setItem('array', JSON.stringify(array))
     }
   }
 }
