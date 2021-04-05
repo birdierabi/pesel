@@ -28,7 +28,7 @@ export default {
         breedsList.reduce((acc, word) => {
           const firstLetter = word[0].toLocaleUpperCase()
           if (!acc[firstLetter]) {
-            acc[firstLetter] = { letter: firstLetter, list: [word] }
+            acc[firstLetter] = { letter: firstLetter, list: [word.replace(' ', '-')] }
           } else {
             acc[firstLetter].list.push(word.replace(' ', '-'))
           }
