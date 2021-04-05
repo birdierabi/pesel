@@ -58,7 +58,7 @@ export default {
         this.isActive = true
       } else {
         this.isActive = false
-        localStorage.removeItem(this.image)
+        localStorage.removeItem('array', JSON.stringify(array))
       }
     }
   }
@@ -75,6 +75,8 @@ export default {
 
     img {
       min-height: 290px;
+
+      object-fit: cover;
     }
 
     svg {
