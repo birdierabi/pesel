@@ -25,6 +25,7 @@ export default {
     border-radius: 50%;
 
     cursor: pointer;
+    outline: none;
 
     svg {
       width: 12.25px;
