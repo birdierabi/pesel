@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = process.env.NUXT_ENV_API_URL
+const baseURL = 'https://dog.ceo/api'
 
 const headers = {}
 
