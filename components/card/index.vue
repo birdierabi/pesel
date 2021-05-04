@@ -28,7 +28,7 @@ export default {
     }
   },
   mounted () {
-    const array = JSON.parse(localStorage.getItem('array'))
+    const array = JSON.parse(localStorage.getItem('array')) || []
     if (array.findIndex(dog => dog === this.image) !== -1) {
       this.isActive = true
       const localStorageList = document.querySelectorAll('.list-item')
@@ -49,12 +49,12 @@ export default {
   },
   methods: {
     toggleLike () {
-      const array = JSON.parse(localStorage.getItem('array'))
-      const index = array.findIndex(dog => dog === this.image)
+      const array = JSON.parse(localStorage.getItem('array')) || []
       if (!this.isActive) {
         array.push(this.image)
         this.isActive = true
       } else {
+        const index = array.findIndex(dog => dog === this.image)
         this.isActive = false
         if (index !== -1) {
           array.splice(index, 1)
